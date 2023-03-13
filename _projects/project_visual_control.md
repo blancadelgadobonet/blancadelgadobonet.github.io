@@ -2,7 +2,7 @@
 layout: page
 title: visual control
 description: programming a formula 1 to follow lines
-img: assets/img/12.jpg
+img: # assets/img/12.jpg
 importance: 1
 category: robotics
 ---
