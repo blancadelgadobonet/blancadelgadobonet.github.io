@@ -4,7 +4,7 @@ title: visual control
 description: programming a formula 1 to follow lines
 img: assets/img/12.jpg
 importance: 1
-category: robotics
+category: fun
 ---
 
 Every project has a beautiful feature showcase page.
