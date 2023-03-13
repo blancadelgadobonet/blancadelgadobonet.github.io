@@ -6,7 +6,7 @@ description: A growing collection of your cool projects.
 nav: true
 nav_order: 2
 display_categories: [robotics]
-horizontal: true
+horizontal: false
 ---
 
 <!-- pages/projects.md -->
