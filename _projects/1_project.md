@@ -1,10 +1,10 @@
 ---
 layout: page
-title: project 1
-description: a project with a background image
+title: visual control
+description: programming a formula 1 to follow lines
 img: assets/img/12.jpg
 importance: 1
-category: work
+category: robotics
 ---
 
 Every project has a beautiful feature showcase page.
