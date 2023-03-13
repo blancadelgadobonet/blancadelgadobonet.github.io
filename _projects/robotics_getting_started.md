@@ -6,13 +6,16 @@ img: # add image tag give a background in the portfolio page
 category: robotics
 ---
 
-This projects consists on programming a robot (i.e., a formula 1 car) to follow the road line in order to complete a circuit. The robot is expected to follow the line as perfectly as possible, that is, 1) without vibrating and 2) without short-cutting! Additionally, the robot should complete the circuits in the least time possible.
+Let me introduce you to one of the subjects of the Official Master in Computer Vision: **ROBOTIC VISION**. For this course, we will learn by doing. In addition to delivering several practices, we will have to document our progress in a blog (e.g., just like this blog!).
+
+Now you can guess the first task: CREATING A BLOG.
+
+Among the many options, one can choose to create a webpage with GitHub. Because GitHub is a very popular platform to share code and work with other computer vision developers, I find specially useful to get comfortable around it. In this post, I will tell you how I created my own website.
+
+## Mon 13, March 2023 - Create your own website with GitHub
+
+[![Final video of fixing issues in your code in VS Code]
+(https://img.youtube.com/vi/JLMbpiywVxQ/maxresdefault.jpg)]
+(https://www.youtube.com/watch?v=JLMbpiywVxQ)
 
 
-# Fri 10, 2023 - Setting up the environment
-
-First things first, I need to 
-
-Here I can write a little bit about the project.
-
-**Bold**
