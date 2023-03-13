@@ -16,9 +16,9 @@ To focus on the "intelligence" of the robot, we will be using a simulation provi
 
 Unibotics can be used through a remote server or locally.
 
-For the use remote server, I needed to share my username with the professor so he could grant me access. Note that the simulation will only work if you [allow Unibotics to use insecure content in the browser](https://forum.unibotics.org/t/allow-insecure-content-in-the-browser/651).
+For the use **remote** server, I needed to share my username with the professor so he could grant me access. Note that the simulation will only work if you [allow Unibotics to use insecure content in the browser](https://forum.unibotics.org/t/allow-insecure-content-in-the-browser/651).
 
-For the use of my local resources, I first installed docker and then tried pullying both the lastest robotics-academy docker and the 3.2.13 version, with the next commands:
+For the use of my **local** resources, I first installed docker and then tried pullying both the lastest robotics-academy docker and the 3.2.13 version, with the next commands:
 
 {% raw %}
 docker pull jderobot/robotics-academy:latest 
