@@ -14,8 +14,18 @@ Among the many options, one can choose to create a webpage with GitHub. Because 
 
 ## Mon 13, March 2023 - Create your own website with GitHub
 
-[![Final video of fixing issues in your code in VS Code]
-(https://img.youtube.com/vi/JLMbpiywVxQ/maxresdefault.jpg)]
-(https://www.youtube.com/watch?v=JLMbpiywVxQ)
+First, follow this video to find out how to create a genera website using GitHub. Despite being a bit outdated, the tutorial is clear enough to be followed for posterior GitHub versions.
 
-{% include youtube.html id="JLMbpiywVxQ" %}
+{% include youtube.html id="o5g-lUuFgpg" %}
+
+In short, you have to create a **public** repository with the specific name "<account name>.github.io" (e.g., blancadelgadobonet.github.io). Note that this will be your domain to access the website, that is, you will be able to access the website once it is set up by searching "https://<account name>.github.io". Do not create a custom domain (Settings > Pages > Custom Domain) unless you have paid for one. If you choose a custom domain, you might be redirected to a "buy the domain" page; if you delete the custom domain and try to acccess to your previous domain, you will continue to be redirected to the "buy the domain" page. In this case, [erase the cache of your browser](https://oit.colorado.edu/tutorial/clear-web-browser-cache-safari) to recover your website domain.
+
+Then, the "Build and deployment" will need to be configured, but don't do that yet. Follow the next video to check the [al-folio template](https://alshedivat.github.io/al-folio/) for your website. Do not install anything on your computer! After watching, if you are convinced by the template, you can fork the [GitHub repository of the template](https://github.com/alshedivat/al-folio) and follow the installation guide available in the README.md file. The "Build and deployment" will be managed by a bot.
+
+{% include youtube.html id="g6AJ9qPPoyc" %}
+  
+If you are not convinced by this template, you can find many more:
+  
+  - [Supported themes in GitHub](https://pages.github.com/themes/)
+  - [Forty](https://jekyllthemes.io/theme/forty-jekyll-theme)
+  - [Scriptor](https://scriptor-jekyll.netlify.app/graphic-designer-on-the-road)
