@@ -483,6 +483,10 @@ Easily create beautiful grids within your blog posts and project pages:
   </a>
 </p>
 
+#### Videos
+
+- [Embedding YouTube Videos](https://christianheilmann.com/2022/09/14/quick-tip-embedding-youtube-videos-in-github-pages/)
+
 ---
 
 ### Other features
