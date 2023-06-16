@@ -44,6 +44,14 @@ First of all, we printed (in a standard printer): 1) a **calibration pattern** (
 GitHub](https://github.com/opencv/opencv/blob/4.x/doc/pattern.png), and 2) a **marker** (Figure 2), that can be automatically generated at 
 [ArUco markers generator!](https://chev.me/arucogen/).
 
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/8.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/10.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
 
 
 Image of calibration pattern: 9-by-6 chessboard calibration pattern of 25 mm per side of square
