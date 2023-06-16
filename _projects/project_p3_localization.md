@@ -52,10 +52,9 @@ GitHub](https://github.com/opencv/opencv/blob/4.x/doc/pattern.png), and 2) a **m
         {% include figure.html path="assets/img/robotics/pattern.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
-
-
-Image of calibration pattern: 9-by-6 chessboard calibration pattern of 25 mm per side of square
-Image of ArUco marker: 4x4, 100 mm side.
+<div class="caption">
+    Figure 1. Left: ArUco marker (4x4, 100 mm per side). Right: calibration pattern (9-by-6, 25 mm per side).
+</div>
 
 Then, we created Python 3.10 Project (link to github) using a MacBook Pro 2021 (Apple M1 Pro), that was comprised of one main file (main.py), 
 two sets of functions stored at (calibration.py and localization.py), and one figure (aruco.png).
