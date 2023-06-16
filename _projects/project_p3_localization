@@ -25,6 +25,11 @@ known camera (or the pose of the camera with respect to the object). In sum, the
 the camera to obtain its intrinsic parameters, 2) detection of the marker in the image, 3) computation of the pose of the object (or camera) 
 using the intrinsic parameters, the detected points of the marker in the image and the known points of the marker in the real world.
 
+{% include youtube.html id="A_zOSGOU7Y4" %}
+
+{% include youtube.html id="NuGvpLIXxqs" %}
+
+
 ## Okey, but how?
 
 First of all, we printed (in a standard printer): 1) a calibration pattern (Figure 1) that can be found in [OpenCV’s 
