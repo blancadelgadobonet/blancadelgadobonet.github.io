@@ -22,8 +22,8 @@ pixels, of known size. Autolocalization using beacons consists on estimating the
 the robot can be computed -- by detecting a known marker with said known camera. Knowing the camera implies knowing its intrinsic parameters,
 for which its calibration is necessary. Using the detected points of the maker in the image (and their corresponding points in the real 
 world), the Perspective-n-Point (PnP) algorithm allows estimating the pose (i.e., position and orientation) of an object with respect to a 
-known camera (or the pose of the camera with respect to the object). In sum, the process can be divided in three steps: 1) *calibration* of 
-the camera to obtain its intrinsic parameters, 2) *detection of the marker* in the image, 3) *computation of the pose* of the object (or camera) 
+known camera (or the pose of the camera with respect to the object). In sum, the process can be divided in three steps: *1) calibration* of 
+the camera to obtain its intrinsic parameters, *2) detection of the marker* in the image, *3) computation of the pose* of the object (or camera) 
 using the intrinsic parameters, the detected points of the marker in the image and the known points of the marker in the real world.
 
 The final result looks as follows:
@@ -46,7 +46,7 @@ GitHub](https://github.com/opencv/opencv/blob/4.x/doc/pattern.png), and 2) a **m
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/8.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.html path="assets/img/robotics/aruco.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/10.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
