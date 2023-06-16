@@ -49,7 +49,7 @@ GitHub](https://github.com/opencv/opencv/blob/4.x/doc/pattern.png), and 2) a **m
         {% include figure.html path="assets/img/robotics/aruco.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/10.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.html path="assets/img/robotics/pattern.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
