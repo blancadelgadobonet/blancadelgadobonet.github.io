@@ -40,8 +40,8 @@ marker (we would not be able to localize it otherwise!).
 
 ### Okey, but how?
 
-First of all, we printed (in a standard printer): 1) a **calibration pattern** (Figure 1), that can be found in [OpenCV’s 
-GitHub](https://github.com/opencv/opencv/blob/4.x/doc/pattern.png), and 2) a **marker** (Figure 2), that can be automatically generated at 
+First of all, we printed (in a standard printer): 1) a **calibration pattern** (Figure 1, right), that can be found in [OpenCV’s 
+GitHub](https://github.com/opencv/opencv/blob/4.x/doc/pattern.png), and 2) a **marker** (Figure 2, left), that can be automatically generated at 
 [ArUco markers generator!](https://chev.me/arucogen/).
 
 <div class="row mt-3">
@@ -56,20 +56,20 @@ GitHub](https://github.com/opencv/opencv/blob/4.x/doc/pattern.png), and 2) a **m
     Figure 1. Left: ArUco marker (4x4, 100 mm per side). Right: calibration pattern (9-by-6, 25 mm per side).
 </div>
 
-Then, we created Python 3.10 Project (link to github) using a MacBook Pro 2021 (Apple M1 Pro), that was comprised of one main file (main.py), 
-two sets of functions stored at (calibration.py and localization.py), and one figure (aruco.png).
+Then, we created Python 3.10 [Project](https://github.com/blancadelgadobonet/robotics.git) using a MacBook Pro 2021 (Apple M1 Pro), that was comprised of one main file (`main.py`), 
+two sets of functions stored at (`calibration.py` and `localization.py`), and one figure (`aruco.png`).
 
-The objective of the script was to acquire real-time images (either from the computer’s webcam or an iPhone plugged to the computer), 
-calibrate the camera after capturing several images of a calibration pattern, localizing a marker (with a specific ID, set by the user) when 
-displayed in said images and displaying the position of the camera with respect to the reference point of the marker. 
+The objective of the script was to **acquire real-time images** (either from the computer’s webcam or an iPhone plugged to the computer), 
+**calibrate** the camera after capturing several images of a calibration pattern, **localizing** a marker (with a specific ID, set by the user) when 
+**displayed** in said images and displaying the position of the camera with respect to the reference point of the marker. 
 
-To calibrate a camera, images of a known pattern need to be taken: detected 2D points of the image (in pixels) can be compared to known 3D 
+To **calibrate** a camera, images of a known pattern need to be taken: detected 2D points of the image (in pixels) can be compared to known 3D 
 points of the scene (in, e.g., millimeters), and the relation between 2D and 3D points can be extracted. To that means, the printed calibration 
 pattern was captured by the camera (N=100 times, although less images can work); the bidimensional points of interest from the pattern were 
-detected (using cv2.findChessboardCorners), displayed (using cv2.drawChessboardCorners, Figure 3), and matched to their corresponding 
-three-dimensional points (generated using a custom function tools.calibration.get_chessboard_points); and the relation between all sets of 
-captured 2D points and their known 3D points was approximated (using cv2.calibrateCamera). As a result, the intrinsic parameters of the camera, 
-its distortion coefficients, and the root mean square-reprojection error was computed (CODE).
+detected (using `cv2.findChessboardCorners`), displayed (using `cv2.drawChessboardCorners`, Figure 2), and matched to their corresponding 
+three-dimensional points (generated using a custom function `tools.calibration.get_chessboard_points`); and the relation between all sets of 
+captured 2D points and their known 3D points was approximated (using `cv2.calibrateCamera`). As a result, the intrinsic parameters of the camera, 
+its distortion coefficients, and the root mean square-reprojection error was computed (Code 1).
 
 Intrinsics:
  [[2233    0  729]
@@ -83,21 +83,21 @@ At this point, the camera was considered known, as the root mean square re-proje
 below 2 pixels).
 
 To localize the camera with respect to a known beacon, images of a said beacon (ID=4) were taken and the 2D corners of the beacon were detected 
-(using cv2.aruco.detectMarkers) and matched to their 3D, real, pre-defined correspondences (mm_beacon_3D). Both 2D and 3D matches, along with the 
-intrinsic parameters of the camera and its distortion were used to extract the extrinsic parameters of the camera (localization.get_camera_position): 
-a perspective-n-point problem was solved with the given input to obtain the rotation and translation vectors (using cv2.solvePnP), the rotation 
-vectors were transformed into a rotation matrix (using cv2.Rodrigues), and the center of the camera with respect to the beacon was computed (Equation 1).
+(using `cv2.aruco.detectMarkers`) and matched to their 3D, real, pre-defined correspondences (mm_beacon_3D). Both 2D and 3D matches, along with the 
+intrinsic parameters of the camera and its distortion were used to extract the extrinsic parameters of the camera (`localization.get_camera_position`): 
+a perspective-n-point problem was solved with the given input to obtain the rotation and translation vectors (using `cv2.solvePnP`), the rotation 
+vectors were transformed into a rotation matrix (using `cv2.Rodrigues`), and the center of the camera with respect to the beacon was computed (Equation 1).
 
 center =  - (KR)^{-1} (Kt) 
 
 Finally, to visualize the localization of the camera in 3D, the scene was set with an ArUco image setting the reference point of the scene (using a 
-customed function, localization.plot_scene) and the real-time positions of the camera were plotted iteratively (using a custom function, 
-localization.plot_camera).
+customed function, `localization.plot_scene`) and the real-time positions of the camera were plotted iteratively (using a custom function, 
+`localization.plot_camera`).
 
 Localizing the camera with respect to the beacon is interesting in two ways. On the one hand, localizing the camera allows localizing the robot, 
 since the camera tends to be in a known position to the robot. On the other hand, localizing the beacon can be extended to localizing a certain point 
 in a known map (if the position of the beacon with respect to a map is known). Hence, geometric autolocalization using beacons exploits its potential 
 when the robot is in a known position with respect to the camera, the camera is in a known position with respect to the beacon, and the beacon with 
-respect to the map: the robot is located with respect to the map.
+respect to the map: **the robot is located with respect to the map**.
 
 *Last edit: Fri 16, June 2023*
