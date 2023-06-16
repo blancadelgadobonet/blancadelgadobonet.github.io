@@ -33,7 +33,7 @@ using the intrinsic parameters, the detected points of the marker in the image a
 ## Okey, but how?
 
 First of all, we printed (in a standard printer): 1) a calibration pattern (Figure 1) that can be found in [OpenCV’s 
-GitHub]( https://github.com/opencv/opencv/blob/4.x/doc/pattern.png) and 2) a marker (Figure 2) that can be automatically generated at 
+GitHub](https://github.com/opencv/opencv/blob/4.x/doc/pattern.png) and 2) a marker (Figure 2) that can be automatically generated at 
 [ArUco markers generator!](https://chev.me/arucogen/).
 
 Image of calibration pattern: 9-by-6 chessboard calibration pattern of 25 mm per side of square
