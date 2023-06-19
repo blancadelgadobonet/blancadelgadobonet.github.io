@@ -68,31 +68,34 @@ points of the scene (in, e.g., millimeters), and the relation between 2D and 3D 
 pattern was captured by the camera (N=100 times, although less images can work); the bidimensional points of interest from the pattern were 
 detected (using `cv2.findChessboardCorners`), displayed (using `cv2.drawChessboardCorners`, Figure 2), and matched to their corresponding 
 three-dimensional points (generated using a custom function `tools.calibration.get_chessboard_points`); and the relation between all sets of 
-captured 2D points and their known 3D points was approximated (using `cv2.calibrateCamera`). As a result, the intrinsic parameters of the camera, 
-its distortion coefficients, and the root mean square-reprojection error was computed (Code 1).
+captured 2D points and their known 3D points was approximated (using `cv2.calibrateCamera`).
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/robotics/eg-caligration.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-
 <div class="caption">
     Figure 2. Calibration pattern with detected points. 
 </div>
 
+As a result, the intrinsic parameters of the camera, 
+its distortion coefficients, and the root mean square re-projection error (rmse) was computed:
+
 \begin{equation}
 \label{eq:intrinsics}
-\begin{pmatrix} c & s \end{pmatrix} 
+    K = \begin{pmatrix} 2233 & 0 & 729 \\ 0 & 2233 & 603 \\ 0 & 0 & 1 \end{pmatrix} 
 \end{equation}
 
-Intrinsics:
- [[2233    0  729]
- [   0 2233  603]
- [   0    0    1]]
+\begin{equation}
+\label{eq:intrinsics}
+    distortion = \begin{pmatrix} 0 & -5 & 0 & 0 & 35 \end{pmatrix} 
+\end{equation}
 
-Distortion: [[ 0 -5  0  0 35]]
-Root mean square re-projection error: 1.815
+\begin{equation}
+\label{eq:intrinsics}
+    rmse = 1.815
+\end{equation}
 
 At this point, the camera was considered known, as the root mean square re-projection error was within an admissible margin (i.e., approximately 
 below 2 pixels).
