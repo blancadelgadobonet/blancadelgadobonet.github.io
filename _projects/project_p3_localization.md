@@ -72,7 +72,7 @@ captured 2D points and their known 3D points was approximated (using `cv2.calibr
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/robotics/eg-calibration.png" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/robotics/eg-calibration.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 <div class="caption">
@@ -88,12 +88,12 @@ its distortion coefficients, and the root mean square re-projection error (rmse)
 \end{equation}
 
 \begin{equation}
-\label{eq:intrinsics}
+\label{eq:distortion}
     distortion = \begin{pmatrix} 0 & -5 & 0 & 0 & 35 \end{pmatrix} 
 \end{equation}
 
 \begin{equation}
-\label{eq:intrinsics}
+\label{eq:rmse}
     rmse = 1.815
 \end{equation}
 
