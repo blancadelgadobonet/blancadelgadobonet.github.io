@@ -118,7 +118,7 @@ a perspective-n-point problem was solved with the given input to obtain the rota
 vectors were transformed into a rotation matrix (using `cv2.Rodrigues`), and the center of the camera with respect to the beacon was computed:
 
 \begin{equation}
-\label{eq:intrinsics}
+\label{eq:center}
     center = - (KR)^{-1} (Kt)
 \end{equation}
 
