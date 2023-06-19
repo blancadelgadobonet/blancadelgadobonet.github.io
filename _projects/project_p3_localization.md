@@ -146,4 +146,4 @@ in a known map (if the position of the beacon with respect to a map is known). H
 when the robot is in a known position with respect to the camera, the camera is in a known position with respect to the beacon, and the beacon with 
 respect to the map: **the robot is located with respect to the map**.
 
-*Last edit: Fri 16, June 2023*
+*Last edit: Mon 19, June 2023*
