@@ -72,7 +72,7 @@ captured 2D points and their known 3D points was approximated (using `cv2.calibr
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/robotics/eg-caligration.png" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="assets/img/robotics/eg-calibration.png" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
