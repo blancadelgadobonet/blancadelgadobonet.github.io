@@ -124,9 +124,21 @@ vectors were transformed into a rotation matrix (using `cv2.Rodrigues`), and the
 
 where K is the matrix of intrinsics, R is the rotation matrix and t is the traslation vector.
 
-Finally, to visualize the localization of the camera in 3D, the scene was set with an ArUco image setting the reference point of the scene (using a 
+Finally, to visualize the localization of the camera in 3D (Figure 4), the scene was set with an ArUco image setting the reference point of the scene (using a 
 customed function, `localization.plot_scene`) and the real-time positions of the camera were plotted iteratively (using a custom function, 
 `localization.plot_camera`).
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/robotics/eg-base.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/robotics/eg-localization.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+<div class="caption">
+    Figure 4. Representation of the scene with the ArUco marker (left) and the pose of the camera at different time instants (right).
+</div>
 
 Localizing the camera with respect to the beacon is interesting in two ways. On the one hand, localizing the camera allows localizing the robot, 
 since the camera tends to be in a known position to the robot. On the other hand, localizing the beacon can be extended to localizing a certain point 
