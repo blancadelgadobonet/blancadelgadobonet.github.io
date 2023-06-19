@@ -81,6 +81,11 @@ its distortion coefficients, and the root mean square-reprojection error was com
     Figure 2. Calibration pattern with detected points. 
 </div>
 
+\begin{equation}
+\label{eq:intrinsics}
+\begin{pmatrix} c & s \end{pmatrix} 
+\end{equation}
+
 Intrinsics:
  [[2233    0  729]
  [   0 2233  603]
