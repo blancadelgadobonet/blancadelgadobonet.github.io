@@ -101,12 +101,28 @@ At this point, the camera was considered known, as the root mean square re-proje
 below 2 pixels).
 
 To localize the camera with respect to a known beacon, images of a said beacon (ID=4) were taken and the 2D corners of the beacon were detected 
-(using `cv2.aruco.detectMarkers`) and matched to their 3D, real, pre-defined correspondences (mm_beacon_3D). Both 2D and 3D matches, along with the 
+(using `cv2.aruco.detectMarkers`, Figure 3) and matched to their 3D, real, pre-defined correspondences (mm_beacon_3D). 
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/robotics/eg-detection.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+<div class="caption">
+    Figure 3. ArUco marker, with detected corners. 
+</div>
+
+Both 2D and 3D matches, along with the 
 intrinsic parameters of the camera and its distortion were used to extract the extrinsic parameters of the camera (`localization.get_camera_position`): 
 a perspective-n-point problem was solved with the given input to obtain the rotation and translation vectors (using `cv2.solvePnP`), the rotation 
-vectors were transformed into a rotation matrix (using `cv2.Rodrigues`), and the center of the camera with respect to the beacon was computed (Equation 1).
+vectors were transformed into a rotation matrix (using `cv2.Rodrigues`), and the center of the camera with respect to the beacon was computed:
 
-center =  - (KR)^{-1} (Kt) 
+\begin{equation}
+\label{eq:intrinsics}
+    center = - (KR)^{-1} (Kt)
+\end{equation}
+
+where K is the matrix of intrinsics, R is the rotation matrix and t is the traslation vector.
 
 Finally, to visualize the localization of the camera in 3D, the scene was set with an ArUco image setting the reference point of the scene (using a 
 customed function, `localization.plot_scene`) and the real-time positions of the camera were plotted iteratively (using a custom function, 
