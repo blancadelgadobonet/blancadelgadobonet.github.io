@@ -84,7 +84,7 @@ its distortion coefficients, and the root mean square re-projection error (rmse)
 
 \begin{equation}
 \label{eq:intrinsics}
-    K = \begin{pmatrix}{ccc} 2233 & 0 & 729 \\ 0 & 2233 & 603 \\ 0 & 0 & 1 \end{pmatrix} 
+    K = \begin{array}{ccc} 2233 & 0 & 729 \\ 0 & 2233 & 603 \\ 0 & 0 & 1 \end{array} 
 \end{equation}
 
 \begin{equation}
