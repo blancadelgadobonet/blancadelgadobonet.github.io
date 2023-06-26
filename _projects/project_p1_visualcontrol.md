@@ -68,7 +68,20 @@ The **interpreter** is going to identify the contour of the (red) line in the sc
     Figure 1. Top-most, left-most and right-most points of the line, reduced to the vertices of a triangle.
 </div>
 
-Given the three points, the deviation of the car is going to be approximated. If the car is going *straight*, the top-most point is going to fall in the grey region and the contribution of the *a* and *b* segments is going to be 50% each (actually, 50.8% and 49.2% respectively, since the center is slightly deviated). If the contribution of the *a* segment is less than 50.8% (minus a margin), the car should go *left* and the amount of deviation is going to be given by the *b* segment. Contrarily, if he contribution of the *b* segment is less than 49.2% (minus a margin), the car should go *right* and the amount of deviation is going to be given by the *a* segment. With this approximation, we are going to define the left and right deviations (Figure 2).
+Given the three points, the deviation of the car is going to be approximated. 
+
+If the car is going *straight*, the top-most point is going to fall in the grey region and the contribution of the *a* and *b* segments is going to be 50% each (actually, 50.8% and 49.2% respectively, since the center is slightly deviated). The straightness factor is going to be a real number in the range [0,1]. To obtain the factor, the contribution of the *a* segment is going to be used as reference and normalized with respect to the center (with a certain margin), and moved to the range [-0.5, +0.5], so that the contribution is going to be minimum (-0.5) at one side of the margin and maximum (+0.5) at the other side of the margin. Then, the absolute contribution in the range [0, +0.5] is going to be considered, since the interpretation at one side of the center (within the margin) is equivalent to that at the other side of the center (also within the margin). Finally, the factor [0,1] is going to be computed according to the absolute contribution in the range [0, +0.5], following the equation in Figure 2.
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/robotics/fig-straightness.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+<div class="caption">
+    Figure 2. Equation determining the straightness factor (y-axis), according to the normalised, absolute, contribution of segment *a* (x-axis).
+</div>
+
+If the contribution of the *a* segment is less than 50.8% (minus a margin), the car should go *left* and the amount of deviation is going to be given by the *b* segment. Contrarily, if he contribution of the *b* segment is less than 49.2% (minus a margin), the car should go *right* and the amount of deviation is going to be given by the *a* segment. With this approximation, we are going to define the left and right deviations (Figure 3).
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -76,7 +89,7 @@ Given the three points, the deviation of the car is going to be approximated. If
     </div>
 </div>
 <div class="caption">
-    Figure 2. Posibilities for the deviation of the car: 1) left-most, 2) left, 3) right, 4) right-most.
+    Figure 3. Posibilities for the deviation of the car: 1) left-most, 2) left, 3) right, 4) right-most.
 </div>
 
 Once interpreted the deviation of the car, two controllers are designed depending on the situation: a) if the car is going straight, b) if the car is turning right or left, c) if there was an error. 
