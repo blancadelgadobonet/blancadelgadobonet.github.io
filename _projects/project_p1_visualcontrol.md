@@ -70,6 +70,15 @@ Given the three points, the deviation of the car is going to be approximated (Fi
 </div>
 
 
+The final result looks as follows:
+
+{% include youtube.html id="1L82gEoz-cY" %}
+
+Two key take-ways were extracted from this first practice:
+1. When working with simulators, it is necessary to come up with a working solution as fast as possible. Until the robot is not moving, we do not really know the possibilities we are going to be facing. 
+2. When designing interpreters, the simpler the better. A more complex interpretation of the contex may have greater potential to obtain the ideal response but, in practice, the more complex the interpretation, the more parameters to manually adjust and the more caotic and frustrating the design of the actuator.
+
+
 
 
 
