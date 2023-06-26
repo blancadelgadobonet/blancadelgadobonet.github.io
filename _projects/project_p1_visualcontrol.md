@@ -47,7 +47,17 @@ Either way, I was not able to start the simulation locally (a black window in Un
 To control a robot we need to first analyse the scene and then respond to changes in said environment; we do this in an infinite loop, sensing and acting.
 Hence, the brain of my robot is going to be divided in two nuclei: the interpreter and the actuator.
 
-The **interpreter** is going to identify the contour of the (red) line in the scene, to be followed. Then, it is going to find the top-most, left-most and right-most points of the line (Figure 1). Two key segments are going to be defined, i.e., $a = top - left$ and $b = right - top$, and normalized using the distance between the left and right points.
+The **interpreter** is going to identify the contour of the (red) line in the scene, to be followed. Then, it is going to find the top-most, left-most and right-most points of the line (Figure 1). Two key segments are going to be defined using the horizontal components of the points and normalized using the distance between the left and right points:
+
+\begin{equation}
+\label{eq:a}
+    a = \frac{top - left}{right - left}
+\end{equation}
+
+\begin{equation}
+\label{eq:b}
+    b = \frac{right - top}{right - left}
+\end{equation}
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -69,12 +79,19 @@ Given the three points, the deviation of the car is going to be approximated. If
     Figure 2. Posibilities for the deviation of the car: 1) left-most, 2) left, 3) right, 4) right-most.
 </div>
 
+Once interpreted the deviation of the car, two controllers are designed depending on the situation: a) if the car is going straight, b) if the car is turning right or left, c) if there was an error. 
+
+- If the car is going straight, angular velocity is going to be null and linear velocity is going to be equal to a minimum velocity (i.e., 2) plus an additional contribution depending on the straightness factor. For more smooth transitions, 95% of the velocity in the previous step is going to be kept, and the new velocity is only going to be determining the remaining 5% (with the idea that several iterations will result in the ideal velocity).
+
+- If the car is turning, a PDI controller is going to be defined to determine the angular velocity, and the linear velocity is going to be set depending on the computed angular velocity. The PDI controller is two have 3 components. The most predominant component (60%) is going to be proportional to the error (i.e., the deviation factor) in the current position. Then, the current and previous positions (with a memory of 8 frames), are going to give the integrative (i.e., sum of previous errors) and the derivative (difference between previous errors) components. The integrative component is meant to fix small, ongoing, errors (e.g., if the car is slowly deviating left). The derivative component is essential to avoid a vibrating car (e.g., if the car is going left it is rectified, but if it is being rectified, the effect is reduced to avoid bouncing to the right side).
 
 The final result looks as follows:
 
 {% include youtube.html id="1L82gEoz-cY" %}
 
-Two key take-ways were extracted from this first practice:
+It is needed 6:20 minutes to complete the turn using the *remote* simulators; way above the optimal timing. The car is slow due to the difficulting in adjusting parameters with three points; the deviations could not be precisely computed with three points, and a unique point should have been used for the (simpler) interpreation of the scene. 
+
+In conclusion, two key take-ways were extracted from this first practice:
 1. When working with simulators, it is necessary to come up with <u>a working solution as fast as possible</u>. Until the robot is not moving, we do not really know the possibilities we are going to be facing. 
 2. When designing interpreters, <u>the simpler the better</u>. A more complex interpretation of the contex may have greater potential to obtain the ideal response but, in practice, the more complex the interpretation, the more parameters to manually adjust and the more caotic and frustrating the design of the actuator.
 
