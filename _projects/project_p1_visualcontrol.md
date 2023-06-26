@@ -10,7 +10,7 @@ category: robotics
 This projects consists on programming a robot (i.e., a formula 1 car) to follow the road line in order to complete a circuit. The robot is expected to follow the line as perfectly as possible, that is, 1) without vibrating and 2) without short-cutting! Additionally, the robot should complete the circuits in the least time possible.
 
 
-## Fri 10, March 2023 - Setting up the environment
+### Fri 10, March 2023 - Setting up the environment
 
 To focus on the "intelligence" of the robot, we will be using a simulation provided by [Unibotics](https://unibotics.org). For that, I signed up (username: blancadelgado). 
 
@@ -42,6 +42,34 @@ docker rm -f name_of_connection
 Either way, I was not able to start the simulation locally (a black window in Unibotics would be shown instead). Therefore, I will go with the remote environment for now.
 
 
-## Thu 16, March 2023 - Programming the brain of my robot
+### Thu 16, March 2023 - Programming the brain of my robot
+
+To control a robot we need to first analyse the scene and then respond to changes in said environment; we do this in an infinite loop, sensing and acting.
+Hence, the brain of my robot is going to be divided in two nuclei: the interpreter and the actuator.
+
+The **interpreter** is going to identify the contour of the (red) line in the scene, to be followed. Then, it is going to find the top-most, left-most and right-most points of the line (Figure 1). 
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/robotics/fig-MainPosition.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+<div class="caption">
+    Figure 1. Top-most, left-most and right-most points of the line, reduced to the vertices of a triangle.
+</div>
+
+Given the three points, the deviation of the car is going to be approximated (Figure 2).
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.html path="assets/img/robotics/fig-Deviations.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+<div class="caption">
+    Figure 2. Posibilities for the deviation of the car: 1) left-most, 2) left, 3) right, 4) right-most.
+</div>
+
+
+
 
 
