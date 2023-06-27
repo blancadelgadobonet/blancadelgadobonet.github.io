@@ -114,7 +114,7 @@ Hence, the interesction between the two rays is given by:
 that is, 
 
 \begin{equation}
-\label{eq:interesection}
+\label{eq:mse-intersection}
   [V_1, -V_2] (s, t)' - (P_2 - P_1) = 0
 \end{equation}
 
