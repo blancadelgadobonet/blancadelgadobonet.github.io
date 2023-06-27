@@ -7,17 +7,27 @@ importance: 1
 category: robotics
 ---
 
-**Robots aim to interact with their surroundings**. To fulfil this objective, it is essential to know **where the robot is within the scene**. 
-Localization is the process of determining where a mobile robot is with respect to its environment. Just like humans determine their 
-position according to what they can see or hear, robots can use information from the scene to localize themselves. A key sensor to 
-retrieve data from the robot’s surroundings is the camera, in fact, one way to obtain the position of a robot is by detecting known 
-beacons in images captured from the scene with a calibrated camera. In this practice, **visual autolocalization based on beacons** will be 
-implemented using Python.
+**Robots aim to interact with their surroundings**. To do so, information is retrieved from the environment using sensors. One of the cheapest sensors,
+able to capture a vast quantity of information, is the camera. Yet, the camera reduces the reality to a 2D version. To recover the real scene we can, 
+nevertheless, reconstruct it additional information, i.e., two images. In this practice, **3D reconstruction** using two images as input will be implemented
+using Python.
 
 
-## Geometric autolocalization using beacons
+## Software-Based 3D Reconstruction
 
-**Beacons** are patterns easy to distinguish and hard to confound. A popular design is the ArUco marker, a square of N-by-N black and white 
+- stereo vision 3D reconstruction
+
+- epipolar geometry: constraints
+- geometric properties: 3D points and proyections in the cameras
+
+
+Every 3D point can be seen from two rays; one ray comes from the first image and a second ray comes from the second image. These rays emerge from the center of each camera, go through a point in the 2D image (where the 3D point is projected) and reach a 3D point in the scene. They can be visualized as two lasers meeting at a unique 3D point. This concept is the basis of 3D reconstruction. Given the two 2D points (in the images) in which a single 3D point is projected, we can triangulate to approximate the position of the 3D point in the scene. Hence, given two images we can approximate the 3D scene.
+
+
+
+
+-
+re patterns easy to distinguish and hard to confound. A popular design is the ArUco marker, a square of N-by-N black and white 
 pixels, of known size. Autolocalization using beacons consists on estimating the position of the camera  -- from which the position of 
 the robot can be computed -- by detecting a known marker with said known camera. Knowing the camera implies knowing its intrinsic parameters,
 for which its **calibration** is necessary. Using the detected points of the maker in the image (and their corresponding points in the real 
@@ -28,9 +38,8 @@ using the intrinsic parameters, the detected points of the marker in the image a
 
 The final result looks as follows:
 
-{% include youtube.html id="A_zOSGOU7Y4" %}
+{% include youtube.html id="xRQ7DFDMx-A" %}
 
-{% include youtube.html id="NuGvpLIXxqs" %}
 
 The camera is first calibrated with a chessboard pattern. Once calibrated, the marker is detected within the image and the pose is estimated and
 displayed. The position of the camera -- its center -- with respect to the reference point within the marker, is indicated by the red dot. The orientation
