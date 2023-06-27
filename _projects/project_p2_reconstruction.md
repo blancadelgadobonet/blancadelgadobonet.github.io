@@ -23,6 +23,7 @@ using Python.
 
 Every 3D point can be seen from two rays; one ray comes from the first image and a second ray comes from the second image. These rays emerge from the center of each camera, go through a point in the 2D image (where the 3D point is projected) and reach a 3D point in the scene. They can be visualized as two lasers meeting at a unique 3D point. This concept is the basis of 3D reconstruction. Given the two 2D points (in the images) in which a single 3D point is projected, we can triangulate to approximate the position of the 3D point in the scene. Hence, given two images we can approximate the 3D scene.
 
+Now, finding all correspondences in the 2D images is costly. 
 
 
 
