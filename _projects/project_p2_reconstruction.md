@@ -33,16 +33,25 @@ First, **feature points** are detected in both images (attentive constraint). Po
 ### Okey, but how?
 
 
-To reconstruct the scene, stereo vision is crucial. Two images, looking at the same scene, need to be acquired.
-Smoothed with bilateral filtering, to avoid noise. cv2.bilateralFilter
-The edges are acquired using the Canny filter. cv2.Canny
-Thresholds are botained automatically such that.
-mu = np.median(img)
-        lower = int(max(0, 0.7 * mu))
-        upper = int(min(255, 1.3 * mu))
+To reconstruct the scene, stereo vision is crucial. Two images, looking at the same scene, need to be acquired. They are also smoothed
+using bilateral filtering (`cv2.bilateralFilter`), to remove noise.
 
-First, grey value image and smoothed. Then, turned out introducing the image directly to Opencv works better.
+To apply the attentive restriction, characteristic points from the image are chosen: edges. The edges are selected using the Canny filter
+(`cv2.Canny`) and using the colored image as input. Automatic thresholds were successfully chosen according to the following formulae:
 
+\begin{equation}
+\label{eq:lower}
+    lower = max(0, 0.7 * mean) 
+\end{equation}
+
+\begin{equation}
+\label{eq:lower}
+    upper = min(255, 1.3 * mean) 
+\end{equation}
+
+*Downsampling the image to one cannal - grey values - and smoothing it was also tried as input to the Canny filter, but the performance decreased. Introducing the color image directly to the filter proved better outcomes and was therefore chosen as part of the pipeline.*
+
+Next, the epipolar restriction was applied. To that end, both the epipole and 
 The 3D center of the cameras are computed, and transformed to homogeneous coordinates.
 
 The epipoles are extracted:
