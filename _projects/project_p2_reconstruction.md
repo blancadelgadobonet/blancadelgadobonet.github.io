@@ -78,28 +78,53 @@ To get the segment of the line lying in the image, the crossing points with the 
 
 Given the segment, it is plotted on a mask with a determined margin, i.e., 10 pixels of thickness (`cv2.line`).
 
-Up to now, for each point in the first image, all points in the second image corresponding to edges and lying in the line should be considered. But an additional requirement is introduced: maximum disparity. Only points (in the second image) that are close to the original index (in the first image) - that is, within a maximum disparity - are going to be analysed. In this project, a maximum disparity of 20 pixels was allowed.
+Up to now, for each point in the first image, all points in the second image corresponding to edges and lying in the line should be considered. But an additional requirement is introduced: <u>maximum disparity</u>. Only points (in the second image) that are close to the original index (in the first image) - that is, within a maximum disparity - are going to be analysed. In this project, a maximum disparity of 20 pixels was allowed.
 
 *In addition, another restriction was tried. Points in the second image that had already found a match in the first image were excluded for posterior matches under the hypothesis that correspondences were 1:1. Ideally, the analysis would have speed up the processing and more accurate matches would have been obtained. Yet, the performance was worsen. Indeed, correspondes are not necessarily 1:1 so this restriction was removed from the reconstruction.*
 
+Next, points in the second image (and their neighbourhood), corresponding to edges, lying within the line, and with a predefined maximum disparity are compared to the point in the first image (and its neighbourhood). To compare the possibilities, both kernels (each point and its neighbourhood, i.e., 11x11) are transformed to HSV and the mean squared error is computed. The match with the smallest error is chosen.
 
-Matching. Kernel 11, 11.
+Having chosen two points, one on each image, they are back-projected to the 3D scene. Using the centers of both cameras and the two 3D points, <u>triangulation</u> is performed. Two rays are formed and the (approximated) intersection between both gives the 3D position of the matching 2D points. 
 
-Threshold 30.
+One ray is formed joining the center of one camera with the reference point in said camera; another ray is formed joining the center of a second camera with the corresponding point in the second camera. Finally, the crossing point between both rays - the desired 3D point - is approximated through least squares error.
 
-- stereo vision 3D reconstruction
+The parametric equation of the first ray, *R = (r1, r2, r2)'*, is:
 
-- epipolar geometry: constraints
-- geometric properties: 3D points and proyections in the cameras
+\begin{equation}
+\label{eq:ray1}
+   R_1 = P_1 + s V_1
+\end{equation}
+        
+where *P1 = (p1, p2, p3)'* is the point in the reference image and V1 is the vector director joining the center of the first camera with point in said camera (i.e., *V1 = CP1 = P1 - C = (p1, p2, p3)' - (c1, c2, c3)'*).
 
-Selection of characteristic points. Bilateral filtering? Edges. Canny edge detection algorithm.
+Equivalently, the parametric equation of the second ray is:
 
-For each point in one image, build the epipolar line in the second image.
-Restrict the search to a region of maximum disparity.
+\begin{equation}
+\label{eq:ray2}
+   R_2 = P_2 + t V_2
+\end{equation}
 
-Find the correspondences. Identify the neighborhoood of the point the first image and compare to every point in hte restricted area of the second image (and its corresponding neighboorhood).
+Hence, the interesction between the two rays is given by:
 
-Triangulate.
-Identify correct triangulations.
+\begin{equation}
+\label{eq:interesection}
+   (x, y, z)' = P_1 + s V_1 = P_2 + t V_2
+\end{equation}
 
+that is, 
 
+\begin{equation}
+\label{eq:interesection}
+  [V_1, -V_2] (s, t)' - (P_2 - P_1) = 0
+\end{equation}
+
+Yet, the rays do not necessarily cross, and the equation is not necessarily solvable. Hence, a least squares error problem can be posed, such that,
+
+\begin{equation}
+\label{eq:mse}
+  Ax - b = 0
+\end{equation}
+
+where *A = [V1, -V2] (3-by-2)*, *x = (s, t)'* (2-by-1, and *b = P2 - P1* (3-by-1).
+
+After computing *s* and *t* we can obtain the intersection using either equation of the lines. Yet, because the approximation is not necessarily exact, solutions might differ. The mean between the solutions is therefore returned, and the distance between both solutions (i.e., both points) is given as an error metric. Finally, triangulations with an error below a threshold (of 30), are projected to the 3D scene (`HAL.project3DScene`) and plotted (`GUI.ShowNewPoints`), using the color from the first image.
