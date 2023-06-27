@@ -32,11 +32,10 @@ First, **feature points** are detected in both images (attentive constraint). Po
 
 ### Okey, but how?
 
-
 To reconstruct the scene, stereo vision is crucial. Two images, looking at the same scene, need to be acquired. They are also smoothed
 using bilateral filtering (`cv2.bilateralFilter`), to remove noise.
 
-To apply the attentive restriction, characteristic points from the image are chosen: edges. The edges are selected using the Canny filter
+To apply the <u>attentive restriction</u>, characteristic points from the image are chosen: edges. The edges are selected using the Canny filter
 (`cv2.Canny`) and using the colored image as input. Automatic thresholds were successfully chosen according to the following formulae:
 
 \begin{equation}
@@ -45,28 +44,39 @@ To apply the attentive restriction, characteristic points from the image are cho
 \end{equation}
 
 \begin{equation}
-\label{eq:lower}
+\label{eq:upper}
     upper = min(255, 1.3 * mean) 
 \end{equation}
 
 *Downsampling the image to one cannal - grey values - and smoothing it was also tried as input to the Canny filter, but the performance decreased. Introducing the color image directly to the filter proved better outcomes and was therefore chosen as part of the pipeline.*
 
-Next, the epipolar restriction was applied. To that end, both the epipole and 
-The 3D center of the cameras are computed, and transformed to homogeneous coordinates.
+Next, the <u>epipolar restriction</u> was applied. To that end, for every point in the first image, the epipolar line in the second image - joining the epipole of the second camera and the point of the first camera projected in the second camera - is computed. 
 
-The epipoles are extracted:
-e1 = P1 C2
+Projecting the **center** of the first camera (in homogeneous coordinates) in the second camera, the **epipole** of the second image is obtained:
 
-Projecting the center of the second camera in the first camera, the epipole of the first image is obtained. Similarly, the epipole in the second image can be computed.
+\begin{equation}
+\label{eq:epipole}
+    e_2 = P_1 * C_2
+\end{equation}
 
-This is in optical coordinates, needs to be moved to graphic HAL.opticalToGrafic
+This point, in optical coordinates, is then transformed to graphic coordinates (`HAL.opticalToGrafic`).
 
+To **project the point of the first camera in the second camera**, the point needs to be written in homogeneous coordinates and transformed from graphical to optical coordinates (`HAL.graficToOptical`). It is then backprojected to the 3D scene (`HAL.backproject`) and projected again but to the second camera (`HAL.project`). Lastly, it is transformed back from optical to graphic coordenates (`HAL.opticalToGrafic`).
 
-Point in the first image is projected on the second image. This implies changing the point to homogeneous coordinates from graphic to optical HAL.graficToOptical
-Then backproject HAL.backproject to the 3D scene (following the ray of the first image). Then project HAL.project back to th e second image (following the second ray).
-Finally recovering the graphic coordinates. HAL.opticalToGrafic
+Using the episode and the point of interest (both in the same camera), the **epipolar line** in homogeneous coordinates (i.e., l1x+l2y+l3z=0) is computed through a cross product.
+To get the segment of the line lying in the image, the crossing points with the left and right borders of the image is calculated. The left point should be (x0, ?, 1) and the right point (x1, ?, 1),  both in homogeneous coordinates, such that
 
-The epipolar line
+\begin{equation}
+\label{eq:left}
+   y_l = - (l1 x0 + l3 )/ l2
+\end{equation}
+
+\begin{equation}
+\label{eq:right}
+   y_r = - (l1 x1 + l3) / l2
+\end{equation}
+
+Given the segment, it is plotted on a mask with a determined margin, i.e., 10 pixels of thickness (`cv2.line`).
 
 Up to now, for each point in the first image, all points in the second image corresponding to edges and lying in the line should be considered. But an additional requirement is introduced: maximum disparity. Only points (in the second image) that are close to the original index (in the first image) - that is, within a maximum disparity - are going to be analysed. In this project, a maximum disparity of 20 pixels was allowed.
 
