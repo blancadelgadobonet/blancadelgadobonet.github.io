@@ -32,6 +32,42 @@ First, **feature points** are detected in both images (attentive constraint). Po
 
 ### Okey, but how?
 
+
+To reconstruct the scene, stereo vision is crucial. Two images, looking at the same scene, need to be acquired.
+Smoothed with bilateral filtering, to avoid noise. cv2.bilateralFilter
+The edges are acquired using the Canny filter. cv2.Canny
+Thresholds are botained automatically such that.
+mu = np.median(img)
+        lower = int(max(0, 0.7 * mu))
+        upper = int(min(255, 1.3 * mu))
+
+First, grey value image and smoothed. Then, turned out introducing the image directly to Opencv works better.
+
+The 3D center of the cameras are computed, and transformed to homogeneous coordinates.
+
+The epipoles are extracted:
+e1 = P1 C2
+
+Projecting the center of the second camera in the first camera, the epipole of the first image is obtained. Similarly, the epipole in the second image can be computed.
+
+This is in optical coordinates, needs to be moved to graphic HAL.opticalToGrafic
+
+
+Point in the first image is projected on the second image. This implies changing the point to homogeneous coordinates from graphic to optical HAL.graficToOptical
+Then backproject HAL.backproject to the 3D scene (following the ray of the first image). Then project HAL.project back to th e second image (following the second ray).
+Finally recovering the graphic coordinates. HAL.opticalToGrafic
+
+The epipolar line
+
+Up to now, for each point in the first image, all points in the second image corresponding to edges and lying in the line should be considered. But an additional requirement is introduced: maximum disparity. Only points (in the second image) that are close to the original index (in the first image) - that is, within a maximum disparity - are going to be analysed. In this project, a maximum disparity of 20 pixels was allowed.
+
+*In addition, another restriction was tried. Points in the second image that had already found a match in the first image were excluded for posterior matches under the hypothesis that correspondences were 1:1. Ideally, the analysis would have speed up the processing and more accurate matches would have been obtained. Yet, the performance was worsen. Indeed, correspondes are not necessarily 1:1 so this restriction was removed from the reconstruction.*
+
+
+Matching. Kernel 11, 11.
+
+Threshold 30.
+
 - stereo vision 3D reconstruction
 
 - epipolar geometry: constraints
